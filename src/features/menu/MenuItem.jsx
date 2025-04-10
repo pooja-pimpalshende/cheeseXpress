@@ -2,7 +2,7 @@
 import { formatCurrency } from "../../utils/helpers";
 
 function MenuItem({ cheese }) {
-  const { id, name, description, image_url } = cheese;
+  const { id, name, description, price, image_url } = cheese;
 
   return (
     <li>
@@ -10,6 +10,7 @@ function MenuItem({ cheese }) {
       <div>
         <p>{name}</p>
         <p>{description}</p>
+        <p>${price}</p>
         <div>
           {/* {!soldOut ? <p>{formatCurrency(unitPrice)}</p> : <p>Sold out</p>} */}
         </div>

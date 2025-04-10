@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 function Menu() {
   const {
-    isPending,
+    isLoading,
     data: menu,
     error,
   } = useQuery({
@@ -12,7 +12,7 @@ function Menu() {
     queryFn: getMenu,
   });
 
-  if (isPending) return "Loading....";
+  if (isLoading) return "Loading....";
   console.log("Menu loader data:", menu);
 
   return (

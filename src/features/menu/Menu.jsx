@@ -14,7 +14,7 @@ function Menu() {
 
   if (isLoading) return "Loading....";
 
-  if (error) return error.message;
+  if (error) throw new Error(error.message);
   console.log("Menu loader data:", menu);
 
   return (

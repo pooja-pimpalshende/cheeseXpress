@@ -2,7 +2,6 @@ import {
   createRootRoute,
   createRoute,
   createRouter,
-  NotFoundRoute,
 } from "@tanstack/react-router";
 import App from "./App";
 import Home from "./ui/Home";
@@ -11,6 +10,7 @@ import Cart from "./features/cart/Cart";
 import CreateOrder from "./features/order/CreateOrder";
 import Order from "./features/order/Order";
 import Error from "./ui/Error";
+import NotFoundRoute from "./ui/NotFoundRoute";
 
 const rootRoute = createRootRoute({
   component: App,

@@ -13,6 +13,8 @@ function Menu() {
   });
 
   if (isLoading) return "Loading....";
+
+  if (error) return error.message;
   console.log("Menu loader data:", menu);
 
   return (

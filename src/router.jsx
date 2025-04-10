@@ -2,6 +2,7 @@ import {
   createRootRoute,
   createRoute,
   createRouter,
+  NotFoundRoute,
 } from "@tanstack/react-router";
 import App from "./App";
 import Home from "./ui/Home";
@@ -9,9 +10,12 @@ import Menu from "./features/menu/Menu";
 import Cart from "./features/cart/Cart";
 import CreateOrder from "./features/order/CreateOrder";
 import Order from "./features/order/Order";
+import Error from "./ui/Error";
 
 const rootRoute = createRootRoute({
   component: App,
+  errorComponent: Error,
+  notFoundComponent: NotFoundRoute,
 });
 
 const homeRoute = createRoute({
@@ -24,6 +28,7 @@ const menuRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/menu",
   component: Menu,
+  errorComponent: Error,
 });
 
 const cartRoute = createRoute({

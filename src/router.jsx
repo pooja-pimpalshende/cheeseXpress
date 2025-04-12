@@ -45,8 +45,9 @@ const newOrderRoute = createRoute({
 
 const orderRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/order/:orderId",
+  path: "/order/$orderId",
   component: Order,
+  errorComponent: Error,
 });
 
 const routeTree = rootRoute.addChildren([

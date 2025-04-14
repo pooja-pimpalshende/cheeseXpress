@@ -39,6 +39,8 @@ function generateTimestampId() {
 
 function CreateOrder() {
   const [withPriority, setWithPriority] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+
   const navigate = useNavigate();
 
   const cart = fakeCart;
@@ -65,6 +67,14 @@ function CreateOrder() {
       custom_id: customId,
     };
     console.log(order);
+
+    const errors = {};
+    if (!isValidPhone(order.phone))
+      errors.phone =
+        "Please give your correct phone number. We might need to contact you!";
+
+    if (Object.keys(errors).length > 0) setFormErrors(errors);
+
     mutate(order);
   }
 
@@ -83,6 +93,7 @@ function CreateOrder() {
           <div>
             <input type="tel" name="phone" required />
           </div>
+          {formErrors?.phone && <p>{formErrors.phone}</p>}
         </div>
 
         <div>
@@ -105,7 +116,9 @@ function CreateOrder() {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <button>Order now</button>
+          <button disabled={isPending}>
+            {isPending ? "Placing order..." : "Order now"}
+          </button>
         </div>
       </form>
     </div>

@@ -9,41 +9,6 @@ import {
 import { getOrder } from "../../services/apiOrder";
 import { useQuery } from "@tanstack/react-query";
 
-// const order = {
-//   id: "ABCDEF",
-//   customer: "Pooja",
-//   phone: "123456789",
-//   address: "Hofmos st , Oslo",
-//   priority: true,
-//   estimatedDelivery: "2027-04-25T10:00:00",
-//   cart: [
-//     {
-//       cheese_id: 7,
-//       name: "Napoli",
-//       quantity: 3,
-//       unitPrice: 16,
-//       totalPrice: 48,
-//     },
-//     {
-//       cheese_id: 5,
-//       name: "Diavola",
-//       quantity: 2,
-//       unitPrice: 16,
-//       totalPrice: 32,
-//     },
-//     {
-//       cheese_id: 3,
-//       name: "Romana",
-//       quantity: 1,
-//       unitPrice: 15,
-//       totalPrice: 15,
-//     },
-//   ],
-//   position: "-9.000,38.000",
-//   orderPrice: 95,
-//   priorityPrice: 19,
-// };
-
 function Order() {
   const { orderId } = useParams({ strict: false });
 

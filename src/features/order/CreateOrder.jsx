@@ -1,4 +1,7 @@
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { createOrder } from "../../services/api.CreateOrder";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -29,19 +32,50 @@ const fakeCart = [
     totalPrice: 15,
   },
 ];
+function generateTimestampId() {
+  const timestamp = Date.now();
+  return `${timestamp}`;
+}
 
 function CreateOrder() {
-  // const [withPriority, setWithPriority] = useState(false);
+  const [withPriority, setWithPriority] = useState(false);
+  const navigate = useNavigate();
+
+  const { mutate, isPending, error } = useMutation({
+    mutationFn: createOrder,
+    onSuccess: (data) => {
+      navigate({ to: `/order/${data.id}` });
+    },
+  });
+
   const cart = fakeCart;
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    console.log(formData);
+
+    const customId = generateTimestampId();
+
+    const order = {
+      ...data,
+      cart: JSON.parse(data.cart),
+      priority: data.priority === "on",
+      custom_id: customId,
+    };
+    console.log(order);
+    mutate(order);
+  }
 
   return (
     <div>
       <h2>Ready to order? Let's go!</h2>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label>First Name</label>
-          <input type="text" name="customer" required />
+          <input type="text" name="customer_name" required />
         </div>
 
         <div>
@@ -70,6 +104,7 @@ function CreateOrder() {
         </div>
 
         <div>
+          <input type="hidden" name="cart" value={JSON.stringify(cart)} />
           <button>Order now</button>
         </div>
       </form>

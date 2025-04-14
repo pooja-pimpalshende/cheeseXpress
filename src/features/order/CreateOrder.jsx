@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { createOrder } from "../../services/api.CreateOrder";
+import { generateTimestampId } from "../../utils/helpers";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -32,10 +33,6 @@ const fakeCart = [
     totalPrice: 15,
   },
 ];
-function generateTimestampId() {
-  const timestamp = Date.now();
-  return `${timestamp}`;
-}
 
 function CreateOrder() {
   const [withPriority, setWithPriority] = useState(false);

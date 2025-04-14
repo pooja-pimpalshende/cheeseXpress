@@ -41,14 +41,14 @@ function CreateOrder() {
   const [withPriority, setWithPriority] = useState(false);
   const navigate = useNavigate();
 
+  const cart = fakeCart;
+
   const { mutate, isPending, error } = useMutation({
     mutationFn: createOrder,
     onSuccess: (data) => {
-      navigate({ to: `/order/${data.id}` });
+      navigate({ to: `/order/${data.custom_id}` });
     },
   });
-
-  const cart = fakeCart;
 
   function handleSubmit(e) {
     e.preventDefault();

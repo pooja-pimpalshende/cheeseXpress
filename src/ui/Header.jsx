@@ -1,13 +1,17 @@
 import { Link } from '@tanstack/react-router';
 import SearchOrder from '../features/order/searchOrder';
+import Username from '../features/user/UserName';
 
 function Header() {
   return (
-    <div className="bg-yellow-500">
-      <Link to="/">CheeseXpress</Link>
+    <header className="border-b border-stone-200 bg-yellow-500 px-4 py-3 uppercase">
+      <Link to="/" className="tracking-wide capitalize">
+        CheeseXpress
+      </Link>
+
       <SearchOrder />
-      <p>Pooja</p>
-    </div>
+      <Username />
+    </header>
   );
 }
 

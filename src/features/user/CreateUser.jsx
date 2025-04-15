@@ -15,6 +15,7 @@ function CreateUser() {
         type="text"
         placeholder="Your full name"
         value={username}
+        className="bg-white"
         onChange={(e) => setUsername(e.target.value)}
       />
 

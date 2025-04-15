@@ -1,9 +1,9 @@
-import { Link } from "@tanstack/react-router";
-import SearchOrder from "../features/order/searchOrder";
+import { Link } from '@tanstack/react-router';
+import SearchOrder from '../features/order/searchOrder';
 
 function Header() {
   return (
-    <div>
+    <div className="bg-yellow-500">
       <Link to="/">CheeseXpress</Link>
       <SearchOrder />
       <p>Pooja</p>

@@ -3,6 +3,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { createOrder } from '../../services/api.CreateOrder';
 import { generateTimestampId } from '../../utils/helpers';
+import Button from '../../ui/Button';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -114,12 +115,9 @@ function CreateOrder() {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <button
-            disabled={isPending}
-            className="inline-block rounded-full bg-yellow-500 px-4 py-3 font-semibold tracking-wide text-stone-800 transition-colors duration-300 hover:bg-yellow-400 focus:bg-yellow-400 focus:ring focus:ring-yellow-400 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed"
-          >
+          <Button disabled={isPending}>
             {isPending ? 'Placing order...' : 'Order now'}
-          </button>
+          </Button>
         </div>
       </form>
     </div>

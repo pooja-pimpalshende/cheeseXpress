@@ -82,13 +82,13 @@ function CreateOrder() {
       <form onSubmit={handleSubmit}>
         <div>
           <label>First Name</label>
-          <input type="text" name="customer_name" required />
+          <input type="text" name="customer_name" className="input" required />
         </div>
 
         <div>
           <label>Phone number</label>
           <div>
-            <input type="tel" name="phone" required />
+            <input type="tel" name="phone" className="input" required />
           </div>
           {formErrors?.phone && <p>{formErrors.phone}</p>}
         </div>
@@ -96,12 +96,13 @@ function CreateOrder() {
         <div>
           <label>Address</label>
           <div>
-            <input type="text" name="address" required />
+            <input type="text" name="address" className="input" required />
           </div>
         </div>
 
         <div>
           <input
+            className="h-6 w-6 accent-yellow-500 focus:ring focus:ring-yellow-500 focus:ring-offset-2 focus:outline-none"
             type="checkbox"
             name="priority"
             id="priority"

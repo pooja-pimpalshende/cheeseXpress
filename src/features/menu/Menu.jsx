@@ -1,6 +1,6 @@
-import { getMenu } from "../../services/apiMenu";
-import MenuItem from "./MenuItem";
-import { useQuery } from "@tanstack/react-query";
+import { getMenu } from '../../services/apiMenu';
+import MenuItem from './MenuItem';
+import { useQuery } from '@tanstack/react-query';
 
 function Menu() {
   const {
@@ -8,22 +8,20 @@ function Menu() {
     data: menu,
     error,
   } = useQuery({
-    queryKey: ["cheese"],
+    queryKey: ['cheese'],
     queryFn: getMenu,
   });
 
-  if (isLoading) return "Loading....";
+  if (isLoading) return 'Loading....';
 
   if (error) throw new Error(error.message);
 
   return (
-    <>
-      <ul>
-        {menu.map((cheese) => (
-          <MenuItem cheese={cheese} key={cheese.id} />
-        ))}
-      </ul>
-    </>
+    <ul className="divide-y divide-stone-200 px-2">
+      {menu.map((cheese) => (
+        <MenuItem cheese={cheese} key={cheese.id} />
+      ))}
+    </ul>
   );
 }
 

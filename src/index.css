@@ -1,9 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montagu+Slab:opsz@16..144&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 @import 'tailwindcss';
 
 @theme {
   --font-sans: 'Roboto Mono, monospace';
 
   --height-screen: 100dvh;
+}
+
+html,
+body {
+  font-family: 'Roboto Mono', monospace;
 }
 
 @layer components {

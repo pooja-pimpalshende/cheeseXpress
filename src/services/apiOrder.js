@@ -1,16 +1,16 @@
-import supabase from "./supabase";
+import supabase from './supabase';
 
-export async function getOrder(customId) {
-  console.log("Fetching order with ID:", customId);
+export async function getOrder(id) {
+  console.log('Fetching order with ID:', id);
   const { data, error } = await supabase
-    .from("orders")
-    .select("*")
-    .eq("custom_id", customId)
+    .from('orders')
+    .select('*')
+    .eq('id', id)
     .single();
 
-  console.log(data);
+  console.log('APi data', data);
   if (error || !data) {
-    throw new Error(`Couldn't find order #${customId}`);
+    throw new Error(`Couldn't find order #${id}`);
   }
   return data;
 }

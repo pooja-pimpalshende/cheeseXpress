@@ -46,7 +46,7 @@ function CreateOrder() {
   const { mutate, isPending, error } = useMutation({
     mutationFn: createOrder,
     onSuccess: (data) => {
-      navigate({ to: `/order/${data.custom_id}` });
+      navigate({ to: `/order/${data.id}` });
     },
   });
 
@@ -56,13 +56,10 @@ function CreateOrder() {
     const data = Object.fromEntries(formData.entries());
     console.log(formData);
 
-    const customId = generateTimestampId();
-
     const order = {
       ...data,
       cart: JSON.parse(data.cart),
       priority: data.priority === 'on',
-      custom_id: customId,
     };
     console.log(order);
 

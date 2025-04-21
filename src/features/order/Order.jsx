@@ -27,21 +27,21 @@ function Order() {
   if (error) throw new Error(error.message);
 
   const {
-    custom_id,
+    id,
     status,
     priority,
     priority_price,
-    order_price,
+    orderPrice,
     estimated_delivery,
     cart,
   } = order;
 
   const deliveryIn = calcMinutesLeft(estimated_delivery);
-
+  console.log('--------------------------order------------------', order);
   return (
     <div className="space-y-8 px-4 py-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-xl font-semibold">order #{custom_id} Status</h2>
+        <h2 className="text-xl font-semibold">order #{id} Status</h2>
 
         <div className="space-x-2">
           {priority && (
@@ -68,13 +68,13 @@ function Order() {
 
       <ul className="divide-y divide-stone-200 border-t border-b border-stone-200">
         {cart.map((item) => (
-          <OrderItem item={item} key={item.id} />
+          <OrderItem item={item} key={item.name} />
         ))}
       </ul>
 
       <div className="space-y-2 bg-stone-200 px-6 py-5">
         <p className="text-sm font-medium text-stone-600">
-          Price pizza: {formatCurrency(order_price)}
+          Price pizza: {formatCurrency(orderPrice)}
         </p>
         {priority && (
           <p className="text-sm font-medium text-stone-600">
@@ -82,7 +82,7 @@ function Order() {
           </p>
         )}
         <p className="text-sm font-bold text-stone-600">
-          To pay on delivery: {formatCurrency(order_price + priority_price)}
+          To pay on delivery: {formatCurrency(orderPrice + priority_price)}
         </p>
       </div>
     </div>

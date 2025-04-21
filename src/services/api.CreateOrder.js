@@ -51,6 +51,24 @@ export async function createOrder(newOrder) {
     throw new Error('Failed creating your order!');
   }
 
+  const orderId = orderData.id;
+
+  const orderItems = newOrder.cart.map((item) => ({
+    order_id: orderId,
+    cheese_id: item.cheese_id,
+    quantity: item.quantity,
+  }));
+
+  const { error: orderItemError } = await supabase
+    .from('order_items')
+    .insert(orderItems);
+
+  if (orderItemError) {
+    throw new Error('Failed to create order items!');
+  }
+
   console.log('orderData', orderData);
+  console.log('orderItems', orderItems);
   return orderData;
+  // return { order: orderData, orderItems };
 }

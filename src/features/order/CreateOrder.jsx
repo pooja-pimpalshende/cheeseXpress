@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
+import { useRouter } from '@tanstack/react-router';
 import { useState } from 'react';
 import { createOrder } from '../../services/api.CreateOrder';
-import { generateTimestampId } from '../../utils/helpers';
 import Button from '../../ui/Button';
+import { useSelector } from 'react-redux';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -38,15 +38,15 @@ const fakeCart = [
 function CreateOrder() {
   const [withPriority, setWithPriority] = useState(false);
   const [formErrors, setFormErrors] = useState({});
-
-  const navigate = useNavigate();
+  const router = useRouter();
+  const userName = useSelector((state) => state.user.userName);
 
   const cart = fakeCart;
 
   const { mutate, isPending, error } = useMutation({
     mutationFn: createOrder,
     onSuccess: (data) => {
-      navigate({ to: `/order/${data.id}` });
+      router.navigate({ to: `/order/${data.id}` });
     },
   });
 
@@ -54,7 +54,6 @@ function CreateOrder() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    console.log(formData);
 
     const order = {
       ...data,
@@ -83,6 +82,7 @@ function CreateOrder() {
           <input
             type="text"
             name="customer_name"
+            defaultValue={userName}
             className="input grow"
             required
           />

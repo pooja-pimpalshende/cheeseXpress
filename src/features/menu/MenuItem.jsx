@@ -1,9 +1,23 @@
 /* eslint-disable react/prop-types */
+import { useDispatch } from 'react-redux';
 import Button from '../../ui/Button';
-import { formatCurrency } from '../../utils/helpers';
+import { addItem } from '../cart/cartSlice';
 
 function MenuItem({ cheese }) {
+  const dispatch = useDispatch();
   const { id, name, description, price, image_url } = cheese;
+
+  const handleAddToCart = () => {
+    const newItem = {
+      cheese_id: id,
+      name,
+      quantity: 1,
+      price,
+      totalPrice: price * 1,
+    };
+
+    dispatch(addItem(newItem));
+  };
 
   return (
     <li className="flex gap-4 py-2 pt-0.5">
@@ -14,7 +28,9 @@ function MenuItem({ cheese }) {
         <div className="mt-auto flex items-center justify-between">
           <p className="text-sm">${price}</p>
           {/* {!soldOut ? <p>{formatCurrency(unitPrice)}</p> : <p>Sold out</p>} */}
-          <Button type="small">Add to cart</Button>
+          <Button onClick={handleAddToCart} type="small">
+            Add to cart
+          </Button>
         </div>
       </div>
     </li>

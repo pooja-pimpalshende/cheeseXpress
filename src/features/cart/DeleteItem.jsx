@@ -6,9 +6,11 @@ import { deleteItem } from './cartSlice';
 function DeleteItem({ cheeseId }) {
   const dispatch = useDispatch();
   return (
-    <Button type="small" onClick={() => dispatch(deleteItem(cheeseId))}>
-      Delete
-    </Button>
+    <div>
+      <Button type="small" onClick={() => dispatch(deleteItem(cheeseId))}>
+        Delete
+      </Button>
+    </div>
   );
 }
 

@@ -1,9 +1,13 @@
 /* eslint-disable react/prop-types */
+import { useSelector } from 'react-redux';
 import { formatCurrency } from '../../utils/helpers';
 import DeleteItem from './DeleteItem';
+import UpdateItemQuantity from './updateItemQuantity';
+import { getCurrentQuantityById } from './cartSlice';
 
 function CartItem({ item }) {
   const { cheese_id, name, quantity, totalPrice } = item;
+  const currentQuantity = useSelector(getCurrentQuantityById(cheese_id));
 
   return (
     <li className="py-3 sm:flex sm:items-center sm:justify-between">
@@ -12,6 +16,10 @@ function CartItem({ item }) {
       </p>
       <div className="flex items-center justify-between gap-6">
         <p className="text-sm font-bold">{formatCurrency(totalPrice)}</p>
+        <UpdateItemQuantity
+          cheeseId={cheese_id}
+          currentQuantity={currentQuantity}
+        />
         <DeleteItem cheeseId={cheese_id} />
       </div>
     </li>

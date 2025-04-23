@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { createOrder } from '../../services/api.CreateOrder';
 import Button from '../../ui/Button';
 import { useSelector } from 'react-redux';
+import { getCart } from '../cart/cartSlice';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -41,7 +42,7 @@ function CreateOrder() {
   const router = useRouter();
   const userName = useSelector((state) => state.user.userName);
 
-  const cart = fakeCart;
+  const cart = useSelector(getCart);
 
   const { mutate, isPending, error } = useMutation({
     mutationFn: createOrder,

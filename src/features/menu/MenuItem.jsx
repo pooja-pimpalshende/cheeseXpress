@@ -1,11 +1,16 @@
 /* eslint-disable react/prop-types */
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../ui/Button';
 import { addItem } from '../cart/cartSlice';
+import DeleteItem from '../cart/DeleteItem';
+import { getCurrentQuantityById } from '../cart/cartSlice';
 
 function MenuItem({ cheese }) {
   const dispatch = useDispatch();
   const { id, name, description, price, image_url } = cheese;
+
+  const currentQuantity = useSelector(getCurrentQuantityById(id));
+  const isInCart = currentQuantity > 0;
 
   const handleAddToCart = () => {
     const newItem = {
@@ -28,9 +33,12 @@ function MenuItem({ cheese }) {
         <div className="mt-auto flex items-center justify-between">
           <p className="text-sm">${price}</p>
           {/* {!soldOut ? <p>{formatCurrency(unitPrice)}</p> : <p>Sold out</p>} */}
-          <Button onClick={handleAddToCart} type="small">
-            Add to cart
-          </Button>
+          {isInCart && <DeleteItem cheeseId={id} />}
+          {!isInCart && (
+            <Button onClick={handleAddToCart} type="small">
+              Add to cart
+            </Button>
+          )}
         </div>
       </div>
     </li>

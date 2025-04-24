@@ -3,38 +3,15 @@ import { useRouter } from '@tanstack/react-router';
 import { useState } from 'react';
 import { createOrder } from '../../services/api.CreateOrder';
 import Button from '../../ui/Button';
-import { useSelector } from 'react-redux';
-import { getCart } from '../cart/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearCart, getCart } from '../cart/cartSlice';
+import EmptyCart from '../cart/EmptyCart';
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
     str,
   );
-
-const fakeCart = [
-  {
-    cheese_id: 12,
-    name: 'Cheddar',
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    cheese_id: 6,
-    name: 'Brie',
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    cheese_id: 11,
-    name: 'Gouda',
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
 
 function CreateOrder() {
   const [withPriority, setWithPriority] = useState(false);
@@ -43,13 +20,17 @@ function CreateOrder() {
   const userName = useSelector((state) => state.user.userName);
 
   const cart = useSelector(getCart);
+  const dispatch = useDispatch();
 
   const { mutate, isPending, error } = useMutation({
     mutationFn: createOrder,
     onSuccess: (data) => {
       router.navigate({ to: `/order/${data.id}` });
+      dispatch(clearCart());
     },
   });
+
+  if (!cart.length) return <EmptyCart />;
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -69,7 +50,6 @@ function CreateOrder() {
         'Please give your correct phone number. We might need to contact you!';
 
     if (Object.keys(errors).length > 0) setFormErrors(errors);
-
     mutate(order);
   }
 

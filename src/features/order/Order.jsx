@@ -38,6 +38,7 @@ function Order() {
 
   const deliveryIn = calcMinutesLeft(estimated_delivery);
   console.log('--------------------------order------------------', order);
+
   return (
     <div className="space-y-8 px-4 py-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -58,11 +59,11 @@ function Order() {
       <div className="flex flex-wrap items-center justify-between gap-2 bg-stone-200 px-6 py-5">
         <p className="font-medium">
           {deliveryIn >= 0
-            ? `Only ${calcMinutesLeft(estimated_delivery)} minutes left 😃`
+            ? `Only ${calcMinutesLeft(estimated_delivery) + 30} minutes left 😃`
             : 'Order should have arrived'}
         </p>
         <p className="text-sm text-stone-500">
-          (Estimated delivery: {formatDate(estimated_delivery)})
+          (Order Placed: {formatDate(estimated_delivery)})
         </p>
       </div>
 

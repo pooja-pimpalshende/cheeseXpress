@@ -1,7 +1,7 @@
 import supabase from './supabase';
 
 export async function createOrder(newOrder) {
-  console.log('newOrder', newOrder);
+  console.log('newOrder ===================== ', newOrder);
 
   const { data: userData, error: userError } = await supabase
     .from('users')
@@ -40,7 +40,7 @@ export async function createOrder(newOrder) {
         user_id: userId,
         priority: newOrder.priority,
         estimated_delivery: new Date().toISOString(),
-        priority_price: 25,
+        // priority_price: 20,
         status: 'preparing',
       },
     ])
@@ -67,8 +67,6 @@ export async function createOrder(newOrder) {
     throw new Error('Failed to create order items!');
   }
 
-  console.log('orderData', orderData);
-  console.log('orderItems', orderItems);
   return orderData;
   // return { order: orderData, orderItems };
 }

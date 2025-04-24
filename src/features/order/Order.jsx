@@ -30,11 +30,14 @@ function Order() {
     id,
     status,
     priority,
-    priority_price,
+    // priority_price,
     orderPrice,
     estimated_delivery,
     cart,
   } = order;
+
+  let priority_price = order.priority_price;
+  priority_price = priority ? 0.2 * orderPrice : 0;
 
   const deliveryIn = calcMinutesLeft(estimated_delivery);
   console.log('--------------------------order------------------', order);

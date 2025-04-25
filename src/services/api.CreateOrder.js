@@ -39,7 +39,7 @@ export async function createOrder(newOrder) {
       {
         user_id: userId,
         priority: newOrder.priority,
-        estimated_delivery: new Date().toISOString(),
+        estimated_delivery: new Date(Date.now() + 30 * 60 * 1000).toISOString(),
         // priority_price: 20,
         status: 'preparing',
       },

@@ -19,7 +19,15 @@ function CreateOrder() {
   const [withPriority, setWithPriority] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const router = useRouter();
-  const userName = useSelector((state) => state.user.userName);
+  const {
+    userName,
+    status: addressStatus,
+    position,
+    address,
+    error: errorAddress,
+  } = useSelector((state) => state.user);
+
+  const isLoadingAddress = addressStatus === 'loading';
 
   const cart = useSelector(getCart);
   const dispatch = useDispatch();
@@ -48,6 +56,7 @@ function CreateOrder() {
       priority: data.priority === 'true',
     };
 
+    console.log('******************************', order);
     const errors = {};
     if (!isValidPhone(order.phone))
       errors.phone =
@@ -60,8 +69,6 @@ function CreateOrder() {
   return (
     <div className="px-4 py-6">
       <h2 className="mb-8 text-xl font-semibold">Ready to order? Let's go!</h2>
-
-      <button onClick={() => dispatch(fetchAddress())}>Get position</button>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
@@ -87,16 +94,38 @@ function CreateOrder() {
           </div>
         </div>
 
-        <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+        <div className="relative mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
           <label className="sm:basis-40">Address</label>
           <div className="grow">
             <input
               type="text"
               name="address"
+              disabled={isLoadingAddress}
+              defaultValue={address}
               className="input w-full"
               required
             />
+            {addressStatus === 'error' && (
+              <p className="mt-2 rounded-md bg-red-100 p-1 text-xs text-red-700">
+                {errorAddress}
+              </p>
+            )}
           </div>
+
+          {!position.latitude && !position.longitude && (
+            <span className="absolute right-[3px] z-50 md:top-[5px] md:right-[5px]">
+              <Button
+                disabled={isLoadingAddress}
+                type="small"
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(fetchAddress());
+                }}
+              >
+                📍Get position
+              </Button>
+            </span>
+          )}
         </div>
 
         <div className="mb-12 flex items-center gap-5">
@@ -115,7 +144,18 @@ function CreateOrder() {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <Button disabled={isPending} type="primary">
+
+          <input
+            type="hidden"
+            name="position"
+            value={
+              position.longitude && position.latitude
+                ? `${position.latitude},${position.longitude}`
+                : ''
+            }
+          />
+
+          <Button disabled={isPending || isLoadingAddress} type="primary">
             {isPending
               ? 'Placing order...'
               : `Order now from ${formatCurrency(totalPrice)}`}

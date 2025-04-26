@@ -1,14 +1,13 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '../../ui/Button';
 import { updateOrder } from '../../services/apiUpdateOrder';
 
 const UpdateOrder = ({ order }) => {
+  const queryClient = useQueryClient();
   const { mutate, isPending, error } = useMutation({
     mutationFn: ({ id, updateObj }) => updateOrder(id, updateObj),
-    onSuccess: (data) => {
-      console.log('priority update successfully', data);
+    onSuccess: () => {
+      queryClient.invalidateQueries(['order', order.id]);
     },
   });
 

@@ -9,6 +9,7 @@ import {
 import { getOrder } from '../../services/apiOrder';
 import { useQuery } from '@tanstack/react-query';
 import OrderItem from './OrderItem';
+import UpdateOrder from './updateOrder';
 
 function Order() {
   const { orderId } = useParams({ strict: false });
@@ -66,7 +67,7 @@ function Order() {
             : 'Order should have arrived'}
         </p>
         <p className="text-sm text-stone-500">
-          (Order Placed: {formatDate(estimated_delivery)})
+          (estimated delivery: {formatDate(estimated_delivery)})
         </p>
       </div>
 
@@ -89,6 +90,8 @@ function Order() {
           To pay on delivery: {formatCurrency(orderPrice + priority_price)}
         </p>
       </div>
+
+      {!priority && <UpdateOrder order={order} />}
     </div>
   );
 }

@@ -17,7 +17,7 @@ function Menu() {
   if (error) throw new Error(error.message);
 
   return (
-    <ul className="divide-y divide-stone-200 px-2">
+    <ul className="grid grid-cols-1 gap-15 divide-y divide-stone-200 px-2 md:grid-cols-3">
       {menu.map((cheese) => (
         <MenuItem cheese={cheese} key={cheese.id} />
       ))}

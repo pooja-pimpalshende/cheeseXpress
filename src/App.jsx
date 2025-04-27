@@ -11,7 +11,7 @@ function App() {
       {isFectching > 0 && <Loader />}
       <Header />
       <div className="overflow-scroll">
-        <main className="mx-auto max-w-3xl">
+        <main className="mx-auto mt-8 max-w-6xl">
           <Outlet />
         </main>
       </div>

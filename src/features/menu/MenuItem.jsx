@@ -26,30 +26,31 @@ function MenuItem({ cheese }) {
   };
 
   return (
-    <li className="flex gap-4 py-2 pt-0.5">
-      <img src={image_url} alt={name} className="h-28 w-28" />
+    <li className="flex flex-col gap-4 rounded-lg border border-stone-100 p-5 py-2 pt-0.5 shadow-lg">
       <div className="flex grow flex-col">
-        <p>{name}</p>
-        <p className="text-sm italic">{description}</p>
-        <div className="mt-auto flex items-center justify-between">
+        <img src={image_url} alt={name} className="w-100% h-60 rounded-lg" />
+        <p className="mt-2 mb-2 font-bold">{name}</p>
+        <p className="mb-4 text-sm italic">{description}</p>
+        <div className="mt-auto">
           <p className="text-sm">${price}</p>
           {/* {!soldOut ? <p>{formatCurrency(unitPrice)}</p> : <p>Sold out</p>} */}
-
-          {isInCart && (
-            <div className="flex items-center gap-3 sm:gap-8">
-              <UpdateItemQuantity
-                cheeseId={id}
-                currentQuantity={currentQuantity}
-              />
-              <DeleteItem cheeseId={id} />
-            </div>
-          )}
-          {!isInCart && (
-            <Button onClick={handleAddToCart} type="small">
-              Add to cart
-            </Button>
-          )}
         </div>
+      </div>
+      <div className="flex flex-col content-end">
+        {isInCart && (
+          <div className="flex justify-between sm:gap-8">
+            <UpdateItemQuantity
+              cheeseId={id}
+              currentQuantity={currentQuantity}
+            />
+            <DeleteItem cheeseId={id} />
+          </div>
+        )}
+        {!isInCart && (
+          <Button onClick={handleAddToCart} type="small">
+            Add to cart
+          </Button>
+        )}
       </div>
     </li>
   );

@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../ui/Button';
 import { addItem } from '../cart/cartSlice';
 import DeleteItem from '../cart/DeleteItem';
 import { getCurrentQuantityById } from '../cart/cartSlice';
-import UpdateItemQuantity from '../cart/updateItemQuantity';
+import UpdateItemQuantity from '../cart/UpdateItemQuantity';
 
 function MenuItem({ cheese }) {
   const dispatch = useDispatch();

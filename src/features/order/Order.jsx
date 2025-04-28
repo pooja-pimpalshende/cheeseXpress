@@ -9,7 +9,7 @@ import {
 import { getOrder } from '../../services/apiOrder';
 import { useQuery } from '@tanstack/react-query';
 import OrderItem from './OrderItem';
-import UpdateOrder from './updateOrder';
+import UpdateOrder from './UpdateOrder';
 
 function Order() {
   const { orderId } = useParams({ strict: false });

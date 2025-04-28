@@ -38,6 +38,7 @@ function CreateOrder() {
   const { mutate, isPending, error } = useMutation({
     mutationFn: createOrder,
     onSuccess: (data) => {
+      window.history.pushState(null, '', '/');
       router.navigate({ to: `/order/${data.id}` });
       dispatch(clearCart());
     },
@@ -56,7 +57,6 @@ function CreateOrder() {
       priority: data.priority === 'true',
     };
 
-    console.log('******************************', order);
     const errors = {};
     if (!isValidPhone(order.phone))
       errors.phone =

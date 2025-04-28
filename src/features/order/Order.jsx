@@ -1,6 +1,6 @@
 // Test ID: IIDSAT
 
-import { useParams } from '@tanstack/react-router';
+import { useParams, useRouter } from '@tanstack/react-router';
 import {
   calcMinutesLeft,
   formatCurrency,
@@ -10,9 +10,23 @@ import { getOrder } from '../../services/apiOrder';
 import { useQuery } from '@tanstack/react-query';
 import OrderItem from './OrderItem';
 import UpdateOrder from './UpdateOrder';
+import { useEffect } from 'react';
 
 function Order() {
   const { orderId } = useParams({ strict: false });
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleBackButton = () => {
+      router.navigate({ to: '/', replace: true });
+    };
+
+    window.addEventListener('popstate', handleBackButton);
+
+    return () => {
+      window.removeEventListener('popstate', handleBackButton);
+    };
+  }, [router]);
 
   const {
     isLoading,
@@ -41,7 +55,6 @@ function Order() {
   priority_price = priority ? 0.2 * orderPrice : 0;
 
   const deliveryIn = calcMinutesLeft(estimated_delivery);
-  console.log('--------------------------order------------------', order);
 
   return (
     <div className="space-y-8 px-4 py-6">

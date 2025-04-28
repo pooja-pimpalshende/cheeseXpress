@@ -62,7 +62,10 @@ function CreateOrder() {
       errors.phone =
         'Please give your correct phone number. We might need to contact you!';
 
-    if (Object.keys(errors).length > 0) setFormErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
     mutate(order);
   }
 

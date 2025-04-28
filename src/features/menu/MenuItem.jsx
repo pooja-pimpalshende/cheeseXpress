@@ -32,7 +32,7 @@ function MenuItem({ cheese }) {
         <p className="mt-2 mb-2 font-bold">{name}</p>
         <p className="mb-4 text-sm italic">{description}</p>
         <div className="mt-auto">
-          <p className="text-sm">${price}</p>
+          <p className="text-lg font-bold">${price}</p>
           {/* {!soldOut ? <p>{formatCurrency(unitPrice)}</p> : <p>Sold out</p>} */}
         </div>
       </div>
